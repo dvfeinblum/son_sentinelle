@@ -1,3 +1,6 @@
+# stuff git doesn't include in the template for some reason
+.idea/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
