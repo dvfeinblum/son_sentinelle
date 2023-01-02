@@ -28,8 +28,10 @@ stream = p.open(format=p.get_format_from_width(WIDTH),
 
 stream.start_stream()
 
-while stream.is_active(): 
-    db = 20 * log10(rms)
+
+
+while stream.is_active():
+    db = 20 * log10(rms) + 54
     print(f"RMS: {rms} DB: {db}") 
     # refresh every 0.3 seconds 
     time.sleep(0.3)
