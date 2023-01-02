@@ -37,7 +37,7 @@ if __name__ == "__main__":
 
     while stream.is_active() and p.can_step:
         db = 20 * log10(rms) + 54
-        print(f"RMS: {rms} DB: {db}")
+        print(f"t: {p.t} DB: {db} RMS: {rms}")
         p.take_step(db)
 
     stream.stop_stream()
