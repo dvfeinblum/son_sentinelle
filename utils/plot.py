@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
-
+from math import inf
 
 class Plot:
-    def __init__(self, time_step, t_max=10):
+    def __init__(self, time_step, t_max=inf):
         self.x = []
         self.y = []
         self.t = 0

@@ -33,14 +33,22 @@ if __name__ == "__main__":
 
     stream.start_stream()
 
-    p = Plot(0.1)
+    p = Plot(0.08)
+
+    # yes this is a joke
+    pedometer = 0
 
     while stream.is_active() and p.can_step:
+        # Not sure of a better way to do this?
+        pedometer += 1
+        if pedometer % 50 == 0:
+            if input("would you like to stop? (Y to stop)") == "Y":
+                break
         db = 20 * log10(rms) + 54
         print(f"t: {p.t} DB: {db} RMS: {rms}")
         p.take_step(db)
 
+    print("All done; wrapping stuff up")
+
     stream.stop_stream()
     stream.close()
-
-    p.show(block=True)
