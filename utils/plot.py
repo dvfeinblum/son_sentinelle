@@ -1,13 +1,16 @@
+import csv
+import os
+from datetime import datetime
+
 import matplotlib.pyplot as plt
 from math import inf
 
 class Plot:
-    def __init__(self, time_step, t_max=inf):
+    def __init__(self, time_step):
         self.x = []
         self.y = []
         self.t = 0
         self.time_step = time_step
-        self.t_max = t_max
         plt.ion()
 
     def take_step(self, y):
@@ -24,6 +27,14 @@ class Plot:
     def show(**kwargs):
         plt.show(**kwargs)
 
-    @property
-    def can_step(self):
-        return self.t < self.t_max
+    def dump_data(self, filename=datetime.now().strftime("output/%Y-%m-%d_%H-%M.csv")):
+        """
+        Dumps the x/y values in the plot into a file with a fixed name.
+
+        :return: None
+        """
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        with open(filename, "w") as f:
+            writer = csv.writer(f)
+            for pair in list(zip(self.x, self.y)):
+                writer.writerow(pair)
