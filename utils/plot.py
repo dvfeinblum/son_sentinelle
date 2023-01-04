@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 
 import matplotlib.pyplot as plt
-from math import inf
+
 
 class Plot:
     def __init__(self, time_step):
@@ -14,6 +14,13 @@ class Plot:
         plt.ion()
 
     def take_step(self, y):
+        """
+        Adds a new (x,y) point to the plot, re-draws the axes
+        and then displays the entire graph.
+
+        :param y:
+        :return:
+        """
         self.x.append(self.t)
         self.y.append(y)
         plt.gca().cla()
@@ -23,15 +30,11 @@ class Plot:
         plt.pause(self.time_step)
         self.t += self.time_step
 
-    @staticmethod
-    def show(**kwargs):
-        plt.show(**kwargs)
-
     def dump_data(self, filename=datetime.now().strftime("output/%Y-%m-%d_%H-%M.csv")):
         """
         Dumps the x/y values in the plot into a file with a fixed name.
 
-        :return: None
+        :param filename: name of output file (defaults to yyyy-mm-dd_hh-min.csv)
         """
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         with open(filename, "w") as f:

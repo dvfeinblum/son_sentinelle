@@ -23,6 +23,7 @@ def callback(in_data, frame_count, time_info, status):
 
 
 if __name__ == "__main__":
+    # Set up stream to mic
     stream = p.open(format=p.get_format_from_width(WIDTH),
                     input_device_index=DEVICE,
                     channels=1,
@@ -33,16 +34,17 @@ if __name__ == "__main__":
 
     stream.start_stream()
 
-    p = Plot(0.08)
+    # fetching data every 0.08s
+    plot = Plot(0.08)
 
     try:
         while stream.is_active():
             db = 20 * log10(rms) + 54
-            print(f"t: {p.t} DB: {db} RMS: {rms}")
-            p.take_step(db)
+            print(f"t: {plot.t} DB: {db} RMS: {rms}")
+            plot.take_step(db)
     except KeyboardInterrupt:
         print("Wrapping stuff up")
-        p.dump_data()
+        plot.dump_data()
         stream.stop_stream()
         stream.close()
         exit()
